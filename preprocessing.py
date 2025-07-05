@@ -17,3 +17,6 @@ features_to_scale = ["Age", "Educ", "SES", "MMSE", "eTIV", "nWBV", "ASF"]
 scaler = StandardScaler()
 df[features_to_scale] = scaler.fit_transform(df[features_to_scale])
 print(df)
+
+def get_preprocessed_data():
+    return df
