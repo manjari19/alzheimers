@@ -1,19 +1,24 @@
-from sklearn.model_selection import cross_validate
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.model_selection import cross_validate
+from sklearn.metrics import classification_report, confusion_matrix
 from preprocessing import get_preprocessed_data
+from imblearn.over_sampling import RandomOverSampler
 import numpy as np
 
+# Get and preprocess the data
 df = get_preprocessed_data()
-
 X = df[["Age", "Educ", "SES", "MMSE", "eTIV", "nWBV", "ASF", "M/F"]]
 y = df["Dementia"]
 
-# Logistic Regression with balanced class weights
-#model = LogisticRegression(class_weight='balanced', max_iter=1000)
-model = LogisticRegression(class_weight={0: 1, 1: 3}, max_iter=1000)
+# Apply Random Oversampling
+ros = RandomOverSampler(random_state=42)
+X_resampled, y_resampled = ros.fit_resample(X, y)
 
-scores = cross_validate(model, X, y, cv=10,
+# Logistic Regression with class weights
+model = LogisticRegression(max_iter=1000)
+
+# Perform 10-fold cross-validation with multiple metrics
+scores = cross_validate(model, X_resampled, y_resampled, cv=10,
                         scoring={
                             'accuracy': 'accuracy',
                             'f1': 'f1',
@@ -22,7 +27,7 @@ scores = cross_validate(model, X, y, cv=10,
                         },
                         return_train_score=False)
 
-# Results
+# Print results
 print("Accuracy scores:", scores['test_accuracy'])
 print("F1 scores:", scores['test_f1'])
 print("Recall scores:", scores['test_recall'])
@@ -32,3 +37,7 @@ print("\nMean Accuracy:", np.mean(scores['test_accuracy']))
 print("Mean F1 Score:", np.mean(scores['test_f1']))
 print("Mean Recall:", np.mean(scores['test_recall']))
 print("Mean Precision:", np.mean(scores['test_precision']))
+
+# Class distribution info
+print("\nOriginal class distribution:\n", y.value_counts())
+print("Resampled class distribution:\n", np.bincount(y_resampled))
