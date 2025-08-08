@@ -1,0 +1,52 @@
+# macOS
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+.pipenv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# VS Code / PyCharm / JetBrains IDEs
+.vscode/
+.idea/
+
+# pytest cache
+.pytest_cache/
+
+# MyPy and other type checking tools
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Test coverage
+.coverage
+htmlcov/
+.tox/
+
+# Environment variable files
+.env
+.env.*
+
+# System files
+Thumbs.db
+Desktop.ini
