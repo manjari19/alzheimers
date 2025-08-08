@@ -2,6 +2,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from preprocessing import get_preprocessed_data
+import pandas as pd
+import matplotlib.pyplot as plt
 
 df = get_preprocessed_data()
 X = df[["Age", "Educ", "SES", "MMSE", "eTIV", "nWBV", "ASF", "M/F"]]
@@ -18,3 +20,28 @@ y_pred = model.predict(X_test)
 print("Accuracy: ", accuracy_score(y_test, y_pred))
 print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:", classification_report(y_test, y_pred))
+
+# Get feature importances
+importances = model.feature_importances_
+features = X.columns
+
+# Create DataFrame
+importance_df = pd.DataFrame({
+    'Feature': features,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+# Print ranked features
+print("\nFeature Importances:\n", importance_df)
+
+# Plot
+importance_df.plot(kind='barh', x='Feature', y='Importance', legend=False)
+plt.title('Feature Importance (Random Forest)')
+plt.gca().invert_yaxis()
+plt.tight_layout()
+
+# Save plot to images folder
+plt.savefig("images/feature_importance.png", dpi=300)
+
+# Show plot
+plt.show()
