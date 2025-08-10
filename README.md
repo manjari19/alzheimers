@@ -39,7 +39,15 @@ Our primary goals:
 
 ###  Dataset
 - **OASIS Cross-Sectional Dataset** from Kaggle  
-  [https://www.kaggle.com/code/vaibhavmathur96/detecting-early-alzheimer-s](https://www.kaggle.com/code/vaibhavmathur96/detecting-early-alzheimer-s)
+[https://www.kaggle.com/datasets/jboysen/mri-and-alzheimers](https://www.kaggle.com/datasets/jboysen/mri-and-alzheimers)
+
+**How to Download**
+- Click the link above
+- In the Data Explorer section, click *oasis_cross-sectional.csv*
+- Click the download button on the right (highlighted in red below)
+<img width="1318" height="691" alt="Screenshot 2025-08-10 at 12 24 27" src="https://github.com/user-attachments/assets/51edbcf2-bf94-4123-ace7-28dbae1c406c" />
+
+
 
 ### Models Used
 - Logistic Regression (with and without class weighting)  
